@@ -9,6 +9,6 @@ const transactionRouters = Router()
  * - Create a new transaction
  * - Protected Route
  */
-transactionRouters.post("/",authMiddleware.authMiddleware,transactionController.createTransactionController)
+transactionRouters.post("/",authMiddleware.authMiddleware,transactionController.createTransaction)
 
 module.exports = transactionRouters

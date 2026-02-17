@@ -58,7 +58,44 @@ async function sendRegistrationEmail(userEmail, name) {
     await sendEmail(userEmail, subject, text, html);
 }
 
+async function sendTransactionEmail(userEmail, name, amount, fromAccount, toAccount) {
+    const subject = "Transaction Alert from Backend Ledger!";
+    
+    const text = `Hi ${name}, a transaction of $${amount} has been made from account ${fromAccount} to account ${toAccount}.`;
+    
+    const html = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h2 style="color: #4A90E2;">Transaction Alert, ${name}!</h2>
+            <p>A transaction of <strong>$${amount}</strong> has been made from account <strong>${fromAccount}</strong> to account <strong>${toAccount}</strong>.</p>
+            <p>Please review your transactions in your Backend Ledger account.</p>
+            <hr style="border: none; border-top: 1px solid #eee;" />
+            <p style="font-size: 0.8em; color: #777;">If you did not authorize this transaction, please contact our support team immediately.</p>
+        </div>
+    `;
+
+    await sendEmail(userEmail, subject, text, html);
+}
+
+async function sendtransactionFailureEmail(userEmail, name, amount, fromAccount, toAccount) {
+    const subject = "Transaction Failure Alert from Backend Ledger!";
+    
+    const text = `Hi ${name}, a transaction of $${amount} from account ${fromAccount} to account ${toAccount} has failed.`;
+    
+    const html = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h2 style="color: #E94E77;">Transaction Failure Alert, ${name}!</h2>
+            <p>A transaction of <strong>$${amount}</strong> from account <strong>${fromAccount}</strong> to account <strong>${toAccount}</strong> has failed.</p>
+            <p>Please review your transactions in your Backend Ledger account and try again.</p>
+            <hr style="border: none; border-top: 1px solid #eee;" />
+            <p style="font-size: 0.8em; color: #777;">If you did not attempt this transaction, please contact our support team immediately.</p>
+        </div>
+    `;
+
+    await sendEmail(userEmail, subject, text, html);
+}
 
 module.exports = {
-    sendRegistrationEmail
+    sendRegistrationEmail,
+    sendTransactionEmail,
+    sendtransactionFailureEmail
 }
