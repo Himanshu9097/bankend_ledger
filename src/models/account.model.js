@@ -34,6 +34,20 @@ accountSchema.methods.getBalance = async function(){
             $match: {account: this._id}
         },
         {
+            $lookup: {
+                from: "transactions",
+                localField: "transaction",
+                foreignField: "_id",
+                as: "transactionInfo"
+            }
+        },
+        {
+            $unwind: "$transactionInfo"
+        },
+        {
+            $match: {"transactionInfo.status": "COMPLETED"}
+        },
+        {
             $group: {
                 _id: null,
                 totalDebit: {
