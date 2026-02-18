@@ -16,6 +16,7 @@ const accountSchema = new mongoose.Schema({
         },
         default: "ACTIVE"
     },
+    
     currency:{
         type:String,
         required:[true,"currency is required for creating an account"],
